@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1" />	
+	<title>Spring Boot Application</title>
+</head>
+
+<body>
+	<center>
+		<div class="starter-template">
+			<h1>Spring Boot Web Thymeleaf Page</h1>
+			<h2>
+				<span th:text="'Hello, ' + ${message}"></span>
+			</h2>
+		</div>
+
+
+		<h2>Search for Employees</h2>
+
+		<form th:action="@{/find/employee}" method="get">
+			<div>
+				<input type="text" name="search" id="search" th:value="${search}" />
+				<input type="submit" value="Search" />
+			</div>
+		</form>
+
+		<h2><span th:if="${#lists.isEmpty(emps)}">NO Record Found!!!</span></h2>
+		
+		<div th:unless="${#lists.isEmpty(emps)}">
+		<h2><span th:text="${#lists.size(emps)} + ' Employees Found...'"></span></h2>
+			<table border="2">
+				<thead>
+					<tr>
+						<th>Sl No.</th>
+						<th>FirstName</th>
+						<th>Surname</th>
+						<th>HomeAddress</th>
+						<th>OfficeLocation</th>
+						<th>Title</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="emp,row : ${emps}">
+						<td th:text="${row.count}"></td>
+						<td th:text="${emp.firstName}"></td>
+						<td th:text="${emp.surname}"></td>
+						<td th:text="${emp.homeAddress}"></td>
+						<td th:text="${emp.officeLocation}"></td>
+						<td th:text="${emp.title}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</center>
+</body>
+
+</html>
